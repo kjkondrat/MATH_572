@@ -1,0 +1,742 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{listings}
+\usepackage{color}
+\usepackage[toc,titletoc]{appendix}
+
+\lstset{% general command to set parameter(s)
+basicstyle=\small\ttfamily} % print whole listing small
+
+\lstset{language=C++,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{green}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}
+}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref false
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\rightmargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+MATH 572 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Course Notes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+01/14/16
+\end_layout
+
+\begin_layout Subsubsection
+Continuation from 01/12/16
+\end_layout
+
+\begin_layout Standard
+Neumann's B.C.'s are 
+\begin_inset Formula 
+\begin{equation}
+u''(x)=f(x);\,\,u'(0)=\alpha;\,\,u'(1)=\beta.
+\end{equation}
+
+\end_inset
+
+Then discretize the domain 
+\begin_inset Formula 
+\begin{equation}
+0,\,h,\,2h,\,(m+1)h
+\end{equation}
+
+\end_inset
+
+with the Difference equations: at 
+\begin_inset Formula $x_{j}=jh$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{h^{2}}\left[U_{j+1}-2U_{j}+U_{j-1}\right]=f_{j}
+\end{equation}
+
+\end_inset
+
+and at 
+\begin_inset Formula $x_{0}=0$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+u'(0)=\alpha
+\end{equation}
+
+\end_inset
+
+Use a first order Finite Difference approximation on 
+\begin_inset Formula $u'$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{u_{1}-u_{0}}{h}=\alpha
+\end{equation}
+
+\end_inset
+
+or use a second order approximation for 
+\begin_inset Formula $u'$
+\end_inset
+
+ (or apply polynomial approximation, or method of undertemined coeffecients
+ on 
+\begin_inset Formula $u_{0},\,u_{1},\,u_{2}$
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+Similarly at 
+\begin_inset Formula $x_{m+1}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{u_{m+1}-u_{m}}{h}=\beta
+\end{equation}
+
+\end_inset
+
+or apply the second order approx.
+ The matrix equation is
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{h^{2}}\left[\begin{array}{ccccccc}
+-h & h & 0 & \cdots & \cdots & \cdots & 0\\
+1 & -2 & 1 &  &  &  & \vdots\\
+0 & 1 & -2 & 1 &  &  & \vdots\\
+\vdots &  & \ddots & \ddots & \ddots &  & \vdots\\
+\vdots &  &  & \ddots & \ddots & \ddots & 0\\
+\vdots &  &  &  & 1 & -2 & 1\\
+0 & \cdots & \cdots & \cdots & 0 & -h & h
+\end{array}\right]\left[\begin{array}{c}
+u_{0}\\
+u_{1}\\
+\vdots\\
+\vdots\\
+\\
+\vdots\\
+u_{m}\\
+u_{m+1}
+\end{array}\right]=\left[\begin{array}{c}
+\alpha\\
+f_{1}\\
+\vdots\\
+\vdots\\
+\\
+\vdots\\
+f_{m}\\
+\beta
+\end{array}\right]
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+AU=f.
+\end{equation}
+
+\end_inset
+
+A matrix is not invertable in this form (it had a null space), therfore
+ this is a problem.
+\end_layout
+
+\begin_layout Subsubsection
+Local Truncation Error (L.T.E)
+\end_layout
+
+\begin_layout Standard
+Loosely speaking, error due to truncating Talyor series, 
+\begin_inset Formula $u"=f$
+\end_inset
+
+, with 
+\begin_inset Formula $\tau$
+\end_inset
+
+ being the notatoin for the L.T.E.
+ In vetor form 
+\begin_inset Formula 
+\begin{equation}
+\tau=A\hat{U-f}
+\end{equation}
+
+\end_inset
+
+at 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\tau=\frac{1}{h^{2}}\left[u(x_{j-1})-2u(x_{j})+u(x_{j+1})\right]-f(x_{j})
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\tau=\left[u"(x_{j})+\frac{1}{12}h^{2}u''''(x_{j}+\mathcal{O}\left(h^{4}\right)\right]-f(x_{j}).
+\end{equation}
+
+\end_inset
+
+By expanding 
+\begin_inset Formula $u(x_{j-1})$
+\end_inset
+
+ and 
+\begin_inset Formula $u(x_{j+1})$
+\end_inset
+
+ via Taylor series about 
+\begin_inset Formula $x_{j}$
+\end_inset
+
+ therefore 
+\begin_inset Formula 
+\begin{equation}
+\tau_{j}=\frac{1}{12}h^{2}u''''(x_{j})+\mathcal{O}(h^{4})\implies\tau_{j}=\mathcal{O}(h^{4}).
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Global Error
+\end_layout
+
+\begin_layout Standard
+The global error is defined by 
+\begin_inset Formula 
+\begin{equation}
+E=U-\hat{U},
+\end{equation}
+
+\end_inset
+
+where E is the global error, U is the numerical approximate solution and
+ 
+\begin_inset Formula $\hat{U}$
+\end_inset
+
+ is the exact solution 
+\begin_inset Formula 
+\begin{equation}
+\hat{U}=\left[\begin{array}{c}
+u(x_{1})\\
+u(x_{2})\\
+\vdots\\
+u(x_{m})
+\end{array}\right].
+\end{equation}
+
+\end_inset
+
+Recall from before that 
+\begin_inset Formula $\tau=A\hat{U}-f$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Question: If we know 
+\begin_inset Formula $\tau$
+\end_inset
+
+ exactly, can we obtain 
+\begin_inset Formula $E$
+\end_inset
+
+? 
+\begin_inset Formula 
+\[
+AE=AU-A\hat{U}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+AE=f-A\hat{U}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+AE=-\tau,
+\end{equation}
+
+\end_inset
+
+which can be used for multigrid and deferred correction methods.
+ If 
+\begin_inset Formula $A$
+\end_inset
+
+ is invertible then we can find 
+\begin_inset Formula $E$
+\end_inset
+
+.
+ Deferred correction methods estimate 
+\begin_inset Formula $\tau$
+\end_inset
+
+ to find the error, then use the found error to imporve the solution.
+ 
+\begin_inset Formula 
+\[
+AE=-\tau
+\]
+
+\end_inset
+
+can be integrated as 
+\begin_inset Formula 
+\begin{equation}
+u"=f,
+\end{equation}
+
+\end_inset
+
+with 
+\begin_inset Formula $u(0)=\alpha$
+\end_inset
+
+ and 
+\begin_inset Formula $u(1)=\beta.$
+\end_inset
+
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+e"=-\tau,
+\end{equation}
+
+\end_inset
+
+such that 
+\begin_inset Formula $e(0)=e(1)=0.$
+\end_inset
+
+ For this Dirichlet Problem
+\begin_inset Formula 
+\begin{equation}
+\tau_{j}=\frac{1}{12}h^{2}u''''(x_{j})+\mathcal{O}(h^{4})
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\implies\tau_{j}=\frac{1}{12}h^{2}f"(x_{j})+\mathcal{O}(h^{4}).
+\end{equation}
+
+\end_inset
+
+Therefore we know approximatley what 
+\begin_inset Formula $\tau_{j}$
+\end_inset
+
+ is.
+\end_layout
+
+\begin_layout Subsubsection
+Deferred Correction Method:
+\end_layout
+
+\begin_layout Enumerate
+Solve 
+\begin_inset Formula $AU=f\rightarrow\mathcal{O}(h^{2})$
+\end_inset
+
+ scheme
+\end_layout
+
+\begin_layout Enumerate
+Solve 
+\begin_inset Formula $AE=\frac{1}{12}h^{2}f"$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Set 
+\begin_inset Formula $U\rightarrow U+E$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+with 
+\begin_inset Formula $\rightarrow A$
+\end_inset
+
+ on the 
+\begin_inset Formula $\mathcal{O}(h^{2})$
+\end_inset
+
+ scheme.
+ The price paid is solving 
+\begin_inset Formula $AE=(\,)$
+\end_inset
+
+, can we avoid this? For this example, yes! Add 1) and 2) to get:
+\begin_inset Formula 
+\begin{equation}
+A(U+E)=f+\frac{1}{12}h^{2}f",
+\end{equation}
+
+\end_inset
+
+but in general this can not be avoided.
+\end_layout
+
+\begin_layout Subsubsection
+Stablilty:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+A^{h}E^{h}=-\tau^{h}
+\end{equation}
+
+\end_inset
+
+and we want 
+\begin_inset Formula $E^{h}\rightarrow0$
+\end_inset
+
+ as 
+\begin_inset Formula $h\rightarrow0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Definition: we say that our F.D.
+ method is stable if 
+\begin_inset Formula $(A^{h})^{-1}$
+\end_inset
+
+ exists for all 
+\begin_inset Formula $h$
+\end_inset
+
+ sufficiantly small 
+\begin_inset Formula $(h<h_{0})$
+\end_inset
+
+ and if there exists a constant 
+\begin_inset Formula $c$
+\end_inset
+
+ such that
+\begin_inset Formula 
+\begin{equation}
+||(A^{h})^{-1}||\le c\,\,\,\,\forall\,h<h_{0}\label{eq:stability condition 01/14/16}
+\end{equation}
+
+\end_inset
+
+which is defined for by any norm type.
+\end_layout
+
+\begin_layout Subsubsection
+Consistancy:
+\end_layout
+
+\begin_layout Standard
+Conistancy is for error truncation.
+ Our F.D.
+ method is consistnet with the differential equation and boundary conditions
+ if 
+\begin_inset Formula $||\tau^{h}||\rightarrow0$
+\end_inset
+
+ as 
+\begin_inset Formula $h\rightarrow0$
+\end_inset
+
+.
+ Typically 
+\begin_inset Formula 
+\begin{equation}
+||\tau^{h}||\sim\mathcal{O}(h^{p})
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $p$
+\end_inset
+
+ is the power.
+ As long as truncation error is something like this then consitancy of our
+ method is met.
+\end_layout
+
+\begin_layout Subsubsection
+Convergence:
+\end_layout
+
+\begin_layout Standard
+Convergnce is important in regards to global error.
+ Our F.D.
+ method is convergent if 
+\begin_inset Formula $||E^{h}||\rightarrow0$
+\end_inset
+
+ as 
+\begin_inset Formula $h\rightarrow0$
+\end_inset
+
+.
+ The Fundamental theorem of Finite Difference Method is 
+\begin_inset Formula 
+\begin{equation}
+\text{Consitancy}+\text{Stability}=\text{Convergence}.
+\end{equation}
+
+\end_inset
+
+If we have stability and consitany, then our method will have convergence.
+ Proof:
+\begin_inset Formula 
+\begin{equation}
+A^{h}E^{h}=-\tau^{h}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+E^{h}=-(A^{h})^{-1}\tau^{h},
+\end{equation}
+
+\end_inset
+
+since 
+\begin_inset Formula $(A^{h})^{-1}$
+\end_inset
+
+exists
+\begin_inset Formula 
+\begin{equation}
+||E^{h}||=||(A^{h})^{-1}\tau^{h}||
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+||E^{h}||\le||(A^{h})^{-1}||\cdot||\tau^{h}||
+\end{equation}
+
+\end_inset
+
+ and from the stability condition in Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:stability condition 01/14/16"
+
+\end_inset
+
+ we get 
+\begin_inset Formula 
+\begin{equation}
+||E^{h}||\le c\cdot||\tau^{h}||
+\end{equation}
+
+\end_inset
+
+therefore
+\begin_inset Formula 
+\begin{equation}
+||E^{h}||\rightarrow0\text{ as }h\rightarrow0
+\end{equation}
+
+\end_inset
+
+because 
+\begin_inset Formula $||\tau^{h}||\rightarrow0$
+\end_inset
+
+ as 
+\begin_inset Formula $h\rightarrow0$
+\end_inset
+
+ due to the consitancy condition.
+ More importantly,
+\begin_inset Formula 
+\[
+\mathcal{O}(h^{p})\text{ L.T.E.  }+\text{Stability}\implies\mathcal{O}(h^{p})\text{ for global error.}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage newpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Homework
+\end_layout
+
+\begin_layout Section
+Homework #1
+\end_layout
+
+\end_body
+\end_document
