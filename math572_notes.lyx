@@ -134,6 +134,1085 @@ Course Notes
 \end_layout
 
 \begin_layout Subsection
+01/01/16
+\end_layout
+
+\begin_layout Standard
+What is an algorithim? - sequence of steps to accomplish a given task.
+ Numerical alogrithim: differntiating, integration, solving differential
+ equations 
+\begin_inset Formula $f=u^{''}.$
+\end_inset
+
+ Finite difference methods (FDM): They are straight foward to impliment,
+ but they suffer from several drawbacks.
+ This course is mainly about FD methods and the analysis.
+\end_layout
+
+\begin_layout Subsubsection
+Floating Point Numbers
+\end_layout
+
+\begin_layout Standard
+There are a finite amount of numbers
+\begin_inset Formula 
+\begin{equation}
+x=\pm(0.d_{1}d_{2}...d_{n})\beta^{\pm e},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $(0.d_{1}d_{2}...d_{n})$
+\end_inset
+
+is the manttisum, 
+\begin_inset Formula $\beta$
+\end_inset
+
+ is the base, and 
+\begin_inset Formula $e$
+\end_inset
+
+ is the exponent.
+ 
+\begin_inset Formula $d_{1}\ne0$
+\end_inset
+
+ by convention.
+ Example of how bits are given in a number are shown in Table
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:Floating-point-numbers"
+
+\end_inset
+
+
+\begin_inset Float table
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="3" columns="5">
+<features rotate="0" tabularvalignment="middle">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<column alignment="center" valignment="top">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Machine
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Sign
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Exponential sign
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Mantisson
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Exponent
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+32-bit
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\pm$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\pm$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n=23
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+m=7
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+64-bit
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\pm$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+\begin_inset Formula $\pm$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+n=52
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+m=10
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:Floating-point-numbers"
+
+\end_inset
+
+Ploating point numbers for different machines
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Example: Consider a computer with 
+\begin_inset Formula $\beta=2$
+\end_inset
+
+, 
+\begin_inset Formula $n=4,$
+\end_inset
+
+ and 
+\begin_inset Formula $m=3.$
+\end_inset
+
+ What is 
+\begin_inset Formula $x_{max}=?$
+\end_inset
+
+
+\begin_inset Formula 
+\[
+x_{max}=(0.1111)\cdot2^{3}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=[1\times2^{-1}+1\times2^{-2}+1\times2^{-3}+1\times2^{-4}]\cdot2^{3}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+=4+2+1+\frac{1}{2}=7.5,
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula $x_{min}=?$
+\end_inset
+
+ 
+\begin_inset Formula 
+\[
+x_{min}=(0.1000)\cdot2^{-3}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+=2^{-4}=\frac{1}{32}=0.0625.
+\end{equation}
+
+\end_inset
+
+Shaded area is where we can represent numbers, but not all the numbers in
+ the shaded area can be represented.
+ ***Add in figure to show this*** Roundoff Error:
+\begin_inset Formula 
+\begin{equation}
+|x-\text{fl}(x)|.
+\end{equation}
+
+\end_inset
+
+This is from loss of signifigant digits, and techniques to overcome, etc...
+\end_layout
+
+\begin_layout Subsubsection
+Finite Difference Approximation:
+\end_layout
+
+\begin_layout Standard
+Given 
+\begin_inset Formula $u(x),$
+\end_inset
+
+ find 
+\begin_inset Formula $u^{'}(x)$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+u(x)=sin(x)\rightarrow u^{'}(x)=cos(x).
+\end{equation}
+
+\end_inset
+
+What if 
+\begin_inset Formula $u$
+\end_inset
+
+ is complicated or what if 
+\begin_inset Formula $u(x)$
+\end_inset
+
+ is not given analytically? ***insert picutres***
+\begin_inset Formula 
+\begin{equation}
+D_{+}u(x)=\frac{u(x+h)-u(x)}{h}
+\end{equation}
+
+\end_inset
+
+for some small parameter.
+ Similarly we can define
+\begin_inset Formula 
+\begin{equation}
+D_{-}u(x)=\frac{u(x)-u(x-h)}{h}.
+\end{equation}
+
+\end_inset
+
+Both 
+\begin_inset Formula $D_{+}u$
+\end_inset
+
+ and 
+\begin_inset Formula $D_{-}u$
+\end_inset
+
+ are first order accurate approximations to 
+\begin_inset Formula $u^{'}(x),$
+\end_inset
+
+ that is 
+\begin_inset Formula 
+\begin{equation}
+\lim_{h\rightarrow0}|D_{+}u(x)-u^{'}(x)|=\mathcal{O}(h),
+\end{equation}
+
+\end_inset
+
+if 
+\begin_inset Formula $h$
+\end_inset
+
+ goes down by 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ then error goes down by 
+\begin_inset Formula $\frac{1}{2}$
+\end_inset
+
+ as well.
+ Define 
+\begin_inset Formula 
+\begin{equation}
+D_{0}u=\frac{D_{+}u+D_{-}u}{2}=\frac{u(x+h)-u(x-h)}{2h}.
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\lim_{h\rightarrow0}|D_{0}u(x)-u^{'}(x)|=\mathcal{O}(h^{2}),
+\end{equation}
+
+\end_inset
+
+where the error reduction in this case is by a factor of 
+\begin_inset Formula $h^{2}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Truncation Errors:
+\end_layout
+
+\begin_layout Standard
+Take a Taylor series expansion of 
+\begin_inset Formula $u(x+h)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u(x+h)=u(x)+hu^{'}(x)+\frac{h^{2}}{2!}u^{''}(x)+...\label{eq:01/07/16 taylor expansion of u(x+h)}
+\end{equation}
+
+\end_inset
+
+and of 
+\begin_inset Formula $u(x-h)$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+u(x-h)=u(x)-hu^{'}(x)+\frac{h^{2}}{2!}u^{''}(x)+...\label{eq:01/07/16 taylor expansion of u(x-h)}
+\end{equation}
+
+\end_inset
+
+From Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:01/07/16 taylor expansion of u(x+h)"
+
+\end_inset
+
+ we get:
+\begin_inset Formula 
+\begin{equation}
+D_{+}u(x)=\frac{u(x+h)-u(x)}{h}=u^{'}(x)+\frac{h^{2}}{2!}u^{''}(x)+...
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+u^{'}(x)=D_{+}u(x)-\frac{h^{2}}{2!}u^{''}(x)+...
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+u^{'}(x)=D_{+}u(x)+\mathcal{O}(h)
+\end{equation}
+
+\end_inset
+
+and from Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:01/07/16 taylor expansion of u(x-h)"
+
+\end_inset
+
+ we get:
+\begin_inset Formula 
+\begin{equation}
+D_{-}u(x)=\frac{u(x)-u(x-h)}{h}=u^{'}(x)-\frac{h^{2}}{2!}u^{''}(x)+....,
+\end{equation}
+
+\end_inset
+
+therfore 
+\begin_inset Formula 
+\begin{equation}
+u^{'}(x)=D_{-}u(x)+\mathcal{O}(h).
+\end{equation}
+
+\end_inset
+
+Then we have 
+\begin_inset Formula 
+\begin{equation}
+D_{0}u(x)=\frac{u(x+h)-u(x-h)}{2h}=u^{'}(x)+2\cdot\frac{h^{3}}{3!\cdot2h}u^{'''}(x)+...=u^{'}(x)+\frac{h^{2}}{3!}u^{'''}(x)+...,
+\end{equation}
+
+\end_inset
+
+therfore we have 
+\begin_inset Formula 
+\begin{equation}
+u^{'}(x)=D_{0}u(x)+\mathcal{O}(h^{2}),
+\end{equation}
+
+\end_inset
+
+which is second order accurate.
+ This is also known as a center difference scheme.
+ Deriving finite difference formulas.
+\end_layout
+
+\begin_layout Paragraph
+Example:
+\end_layout
+
+\begin_layout Standard
+Given 
+\begin_inset Formula $u(x)$
+\end_inset
+
+, 
+\begin_inset Formula $u(x-h),$
+\end_inset
+
+ and 
+\begin_inset Formula $u(x+h),$
+\end_inset
+
+ let 
+\begin_inset Formula 
+\begin{equation}
+D_{2}u(x)=au(x)+bu(x-h)+cu(x+h),
+\end{equation}
+
+\end_inset
+
+find 
+\begin_inset Formula $a,b,c$
+\end_inset
+
+ that gives best possible approximations to 
+\begin_inset Formula $u^{'}(x).$
+\end_inset
+
+ Subsititute the Taylor series expanision for 
+\begin_inset Formula $u(x-h),$
+\end_inset
+
+ 
+\begin_inset Formula $u(x-2h)$
+\end_inset
+
+ about the point 
+\begin_inset Formula $x:$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+D_{2}u(x)=\left(a+b+c\right)u(x)-\left(b+2c\right)hu^{'}(x)+\frac{1}{2}\left(b+4c\right)h^{2}u^{''}(x)-\frac{1}{6}\left(b+8c\right)h^{3}u^{'''}(x)+...
+\end{equation}
+
+\end_inset
+
+Then we enforce that 
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+a+b+c & =0\\
+-\left(b+2c\right)h & =1\\
+\frac{1}{2}\left(b+4c\right)h^{2} & =0
+\end{cases},
+\end{equation}
+
+\end_inset
+
+then solve for the coefficients to get 
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+a & =\frac{3}{2}h\\
+b & =-\frac{2}{h}.\\
+b & =\frac{1}{2}h
+\end{cases}
+\end{equation}
+
+\end_inset
+
+We cannot enforce anything else becauase we only have three unkowns, therefore
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+D_{2}u(x)=\frac{1}{2h}\left[3u(x)-4u(x-h)+u(x-2h)\right].
+\end{equation}
+
+\end_inset
+
+Order of accuracy is ?? Leading order term 
+\begin_inset Formula 
+\begin{equation}
+=-\frac{1}{6}\left(b+8c\right)h^{3}u^{'''}(x)=-\frac{1}{6}\left(-\frac{2}{h}+8\cdot\frac{1}{2h}\right)h^{3}u^{'''}(x)=\frac{1}{3}h^{2}u^{'''}(x),
+\end{equation}
+
+\end_inset
+
+therefore 
+\begin_inset Formula 
+\begin{equation}
+u^{'}(x)=D_{2}u(x)+\mathcal{O}(h^{2}).
+\end{equation}
+
+\end_inset
+
+Function evaluations are always expensive.
+ Use first order method with not the most accurate data set.
+ Need to way both accuracy and stability of algorithim.
+ 
+\end_layout
+
+\begin_layout Subsection
+01/12/16
+\end_layout
+
+\begin_layout Subsubsection
+Method of Undetermined coefficients
+\end_layout
+
+\begin_layout Itemize
+Suppose 
+\begin_inset Formula $u(x_{1}),$
+\end_inset
+
+ 
+\begin_inset Formula $u(x_{2}),$
+\end_inset
+
+ 
+\begin_inset Formula $u(x_{3})$
+\end_inset
+
+ are given
+\end_layout
+
+\begin_layout Itemize
+Find an interpolating polynomial 
+\begin_inset Formula $p(x)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Compute 
+\begin_inset Formula $p^{'}(x)\approx u^{'}(x)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Second order derivative 
+\begin_inset Formula $u^{''}(x)$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+D^{2}u=\begin{cases}
+D_{-}\left(D_{+}u(x)\right)\\
+D_{+}\left(D_{-}u(x)\right)\\
+\hat{D_{0}}\left(\hat{D_{0}}u(x)\right)
+\end{cases}
+\end{equation}
+
+\end_inset
+
+is 
+\begin_inset Formula $\mathcal{O}(h^{2})$
+\end_inset
+
+formulas give the same F.D.
+ forumulas, central difference approximation.
+ 
+\begin_inset Formula 
+\[
+D_{-}\left(D_{+}u(x)\right)=\frac{D_{+}u(x)-D_{+}u(x-h)}{h}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=\frac{1}{h}\left[\frac{u(x+h)-u(x)}{h}-\frac{u(x)-u(x-h)}{h}\right]
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+D^{2}u(x)=\frac{1}{h^{2}}\left[u(x+h)-2u(x)+u(x-h)\right].
+\end{equation}
+
+\end_inset
+
+Note that 
+\begin_inset Formula 
+\begin{equation}
+\hat{D_{0}}u(x)=\frac{u(x+\frac{h}{2})-u(x-\frac{h}{2})}{h}.
+\end{equation}
+
+\end_inset
+
+Using Taylor series we can derive that 
+\begin_inset Formula 
+\begin{equation}
+D^{2}u(x)=u^{''}(x)+\frac{1}{12}h^{2}u^{''}(x)+\mathcal{O}(h^{4}).
+\end{equation}
+
+\end_inset
+
+Similarly we can apply other combinations 
+\begin_inset Formula $\left(D_{+}D_{+},\,D_{-}D_{-}\right)$
+\end_inset
+
+to get other formulas for second derivatives, But order of accuracy will
+ be different, which can be derived again using Taylor series.
+ Now we find an interpolating polynomial 
+\begin_inset Formula $p(x).$
+\end_inset
+
+ Compute 
+\begin_inset Formula $p^{''}(x)\approx u^{''}(x).$
+\end_inset
+
+ Using polynomials is not good if given in uniform points.
+ Finding the polynomial can be done in Newton Form, Larange Form, or any
+ other forms.
+ All will give the same results for a given 
+\begin_inset Formula $\{x_{i}\}_{i=1}$
+\end_inset
+
+ (set of data points).
+\end_layout
+
+\begin_layout Subsubsection
+Higher Derivatives
+\end_layout
+
+\begin_layout Standard
+Reduce to lower order derivatives e.g.
+ 
+\begin_inset Formula $u^{'''}(x)\approx D_{-}\left(D^{2}u(x)\right).$
+\end_inset
+
+ Then find a interpolating polynomial 
+\begin_inset Formula $p(x),$
+\end_inset
+
+ and compute 
+\begin_inset Formula $p^{(k)}(x)\approx u^{(k)}(x).$
+\end_inset
+
+ The Method of undetermined coefficeints, given 
+\begin_inset Formula $u$
+\end_inset
+
+ at 
+\begin_inset Formula $\{x_{1},x_{2},...,x_{n}\}$
+\end_inset
+
+ compute 
+\begin_inset Formula $u^{(k)}(x).$
+\end_inset
+
+ We require that 
+\begin_inset Formula $n>k,$
+\end_inset
+
+ but we asusme that 
+\begin_inset Formula $n>k+1.$
+\end_inset
+
+ Let 
+\begin_inset Formula 
+\begin{equation}
+c_{1}u(x_{1})+c_{2}u(x_{2})+...+c_{n}u(x_{n})=u^{(k)}(x)+\mathcal{O}(h^{p}),
+\end{equation}
+
+\end_inset
+
+and Taylor series will give
+\begin_inset Formula 
+\begin{equation}
+u(x_{i})=u(x)+(x_{i}-x)u^{'}(x)+\frac{(x_{i}-x)^{2}}{2}u^{''}(x)+...+\frac{1}{k!}(x_{i}-x)^{k}u^{(k)}(x)+...,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+ is very very close to 
+\begin_inset Formula $x.$
+\end_inset
+
+ Subsitiuting in the above expression and equating all the coefficients,
+ except the one corresponising to 
+\begin_inset Formula $u^{(k)},$
+\end_inset
+
+ to zero we get: 
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{(i-1)!}\sum_{j=1}^{n}(x_{j}-x)^{n}=\begin{cases}
+1 & \text{,if \ensuremath{i-1=k}}\\
+0 & \text{,otherwise}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Corresponding to 
+\begin_inset Formula $i=1,...,n$
+\end_inset
+
+ we get 
+\begin_inset Formula $n$
+\end_inset
+
+ equations or the unknowns 
+\begin_inset Formula $\{c_{1},c_{2},...,c_{n}\}$
+\end_inset
+
+:
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{ccccc}
+\\
+\\
+\\
+\\
+\\
+\end{array}\right]\left[\begin{array}{c}
+c_{1}\\
+c_{2}\\
+\vdots\\
+\vdots\\
+c_{n}
+\end{array}\right]=\left[\begin{array}{c}
+0\\
+\vdots\\
+1\\
+\vdots\\
+0
+\end{array}\right],
+\end{equation}
+
+\end_inset
+
+where the empty matrix is a Vandermode matirx, which is ill condition matrix,
+ which is bad for large 
+\begin_inset Formula $n,$
+\end_inset
+
+ and the 1 value is obtained for position 
+\begin_inset Formula $i=k+1.$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Solving Boundary Value Problems (B.V.P.'s)
+\end_layout
+
+\begin_layout Standard
+Starting with 
+\begin_inset Formula 
+\begin{equation}
+u^{''}(x)=f(x);\,\,u(0)=\alpha:\,\,u(1)=\beta.
+\end{equation}
+
+\end_inset
+
+We first discreteize the domain,
+\begin_inset Formula 
+\begin{equation}
+x_{j}=jh,\text{ for \ensuremath{j=0,1,...,m+1},}
+\end{equation}
+
+\end_inset
+
+then write the difference equations and let 
+\begin_inset Formula 
+\begin{equation}
+u_{j}=u(x_{j})=u(jh),
+\end{equation}
+
+\end_inset
+
+given 
+\begin_inset Formula $u_{0},$
+\end_inset
+
+ 
+\begin_inset Formula $u_{m},$
+\end_inset
+
+ 
+\begin_inset Formula $f,$
+\end_inset
+
+ compute 
+\begin_inset Formula $\{u_{1},u_{2},...,u_{m}\}.$
+\end_inset
+
+ Since the PDE is valid at all points in the domain, each interior node
+ will give one equation.
+ Then we get 
+\begin_inset Formula $m$
+\end_inset
+
+ equations and unknowns that can be solved for.
+ Consider 
+\begin_inset Formula $x_{j},$
+\end_inset
+
+ conver the differential equation into a difference equation using F.D.
+ approximation.
+ 
+\begin_inset Formula 
+\begin{equation}
+u^{''}=f\biggr|_{x=x_{j}}\rightarrow\frac{u_{j+1}-2u_{j}+u_{j-1}}{h^{2}}=f_{j},
+\end{equation}
+
+\end_inset
+
+which is valid for all 
+\begin_inset Formula $j=1,2,...,m.$
+\end_inset
+
+ Consider 
+\begin_inset Formula $j=1$
+\end_inset
+
+ the D.E.
+ is 
+\begin_inset Formula 
+\begin{equation}
+f_{1}=\frac{u_{2}-2u_{1}+u_{0}}{h^{2}},\,u_{0}=\alpha
+\end{equation}
+
+\end_inset
+
+then we get 
+\begin_inset Formula 
+\begin{equation}
+\frac{u_{2}-2u_{2}}{h^{2}}=f_{1}-\frac{\alpha}{h^{2}},
+\end{equation}
+
+\end_inset
+
+and similarly 
+\begin_inset Formula 
+\begin{equation}
+\frac{-2u_{m}+u_{m+1}}{h^{2}}=f_{m}-\frac{\beta}{h^{2}}.
+\end{equation}
+
+\end_inset
+
+Convert these D.E.'s into a matrix equation 
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{h^{2}}\left[\begin{array}{ccccc}
+-2 & 1\\
+1 & -2 & 1\\
+ & 1 & \ddots & \ddots\\
+ &  & \ddots & \ddots & 1\\
+ &  &  & 1 & -2
+\end{array}\right]\left[\begin{array}{c}
+u_{1}\\
+u_{2}\\
+\vdots\\
+\vdots\\
+u_{m}
+\end{array}\right]=\left[\begin{array}{c}
+f_{1}-\frac{\alpha}{h^{2}}\\
+f_{2}\\
+\vdots\\
+\vdots\\
+f_{m}-\frac{\beta}{h^{2}}
+\end{array}\right],
+\end{equation}
+
+\end_inset
+
+which is in the form of 
+\begin_inset Formula $AU=F,$
+\end_inset
+
+ where 
+\begin_inset Formula $A$
+\end_inset
+
+ is a tridiagonal matrix, and this is formed with Dirichlet Boundary conditions.
+ We need to look at
+\end_layout
+
+\begin_layout Itemize
+local truncation error
+\end_layout
+
+\begin_layout Itemize
+Global truncation error 
+\begin_inset Formula $|u(x)-U(x)|,$
+\end_inset
+
+ where 
+\begin_inset Formula $u(x)$
+\end_inset
+
+ is the exact solution and 
+\begin_inset Formula $U(x)$
+\end_inset
+
+ is the computed solution.
+\end_layout
+
+\begin_layout Itemize
+Stability
+\end_layout
+
+\begin_layout Itemize
+Consistancy
+\end_layout
+
+\begin_layout Itemize
+Convergence.
+\end_layout
+
+\begin_layout Subsection
 01/14/16
 \end_layout
 
@@ -715,12 +1794,416 @@ because
  More importantly,
 \begin_inset Formula 
 \[
-\mathcal{O}(h^{p})\text{ L.T.E.  }+\text{Stability}\implies\mathcal{O}(h^{p})\text{ for global error.}
+\mathcal{O}(h^{p})\text{ L.T.E. }+\text{Stability}\implies\mathcal{O}(h^{p})\text{ for global error.}
 \]
 
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+01/19/16
+\end_layout
+
+\begin_layout Subsubsection
+Continuatoin from 01/14/2016 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\left[\begin{array}{ccccc}
+-2 & 1\\
+1 & -2 & 1\\
+ & 1 & \ddots & \ddots\\
+ &  & \ddots & \ddots & 1\\
+ &  &  & 1 & 2
+\end{array}\right]$
+\end_inset
+
+ is a symmetric and negative definite matrix.
+\end_layout
+
+\begin_layout Subsubsection
+More General P.D.E.'s
+\end_layout
+
+\begin_layout Standard
+Starting with 
+\begin_inset Formula 
+\begin{equation}
+f(x)=(k(x)u'(x))';\,\,u(0)=\alpha;\,\,u(1)=\beta
+\end{equation}
+
+\end_inset
+
+Fromt this we get that
+\begin_inset Formula 
+\begin{equation}
+f=ku''+k'u'
+\end{equation}
+
+\end_inset
+
+which is similar to our previous strategy and at 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+u''(x_{i})=\frac{u_{i-1}-2u_{i}+u_{i+1}}{h^{2}}
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+u'(x_{i})=\frac{u_{i+1}-u_{i-1}}{2h}
+\end{equation}
+
+\end_inset
+
+At whih 
+\begin_inset Formula $x_{1}$
+\end_inset
+
+we get the following difference equation, and we imply 
+\begin_inset Formula $k$
+\end_inset
+
+ is a given quantity, therefore 
+\begin_inset Formula 
+\begin{equation}
+f_{i}=k_{i}\left(\frac{u_{i-1}-2u_{i}+u_{i+1}}{h^{2}}\right)+k_{i}^{'}\left(\frac{u_{i+1}+u_{i-1}}{2h}\right),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $k_{i}=k(x_{i}),$
+\end_inset
+
+ and 
+\begin_inset Formula $f_{i}=f(x_{i}).$
+\end_inset
+
+ From this we can set up the matrix equation, 
+\begin_inset Formula $AU=F,$
+\end_inset
+
+ where 
+\begin_inset Formula 
+\begin{equation}
+A=\frac{1}{h^{2}}\left[\begin{array}{ccccc}
+-2k_{1} & k_{1}+h\frac{k_{1}^{'}}{2}\\
+k_{2}-h\frac{k_{2}^{'}}{2} & -2k_{2} & \ddots\\
+ & \ddots & \ddots & \ddots\\
+ &  & \ddots & \ddots & \ddots\\
+ &  &  & \ddots & -2k_{n}
+\end{array}\right],
+\end{equation}
+
+\end_inset
+
+which is not a symmetric matrix.
+ If we consider halfway points inbetween 
+\begin_inset Formula $i-1,i,\text{ and \ensuremath{i+1}}$
+\end_inset
+
+we can have the following 
+\begin_inset Formula 
+\begin{equation}
+f=(ku^{'})^{'},
+\end{equation}
+
+\end_inset
+
+where
+\begin_inset Formula 
+\begin{equation}
+k_{i+1/2}u^{'}(x_{i+1/2})=k_{i+1/2}\left(\frac{u_{i+1}-u_{1}}{h}\right),
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\begin{equation}
+k_{i-1/2}u^{'}(x_{i-1/2})=k_{i-1/2}\left(\frac{u_{i}-u_{i-1}}{h}\right).
+\end{equation}
+
+\end_inset
+
+Now we can apply the difference scheme at 
+\begin_inset Formula $x_{i}$
+\end_inset
+
+to get 
+\begin_inset Formula 
+\begin{equation}
+f(x_{i})=\frac{k_{i+1/2}u^{'}(x_{+1/2})-k_{i-1/2}u^{'}(x_{i-1/2})}{h},
+\end{equation}
+
+\end_inset
+
+then we can get 
+\begin_inset Formula 
+\begin{equation}
+f_{i}=\frac{1}{h^{2}}\left[k_{i+1/2}\left(u_{i+1}-u_{i}\right)-k_{i-1/2}\left(u_{i}-u_{i+1}\right)\right],
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+f_{i}=\frac{1}{h^{2}}\left[k_{i+1/2}u_{i+1}-\left(k_{i+1/2}+k_{i-1/2}\right)u_{i}+k_{i-1/2}u_{i-1}\right].
+\end{equation}
+
+\end_inset
+
+This then gives us the following 
+\begin_inset Formula $A$
+\end_inset
+
+ matrix 
+\begin_inset Formula 
+\begin{equation}
+A=\frac{1}{h^{2}}\left[\begin{array}{ccccc}
+-\left(k_{1+1/2}+k_{1-1/2}\right) & k_{1+1/2}\\
+k_{2-1/2} & -\left(k_{2+1/2}+k_{2-1/2}\right) & k_{2+1/2}\\
+ & k_{3-1/2} & \ddots & \ddots\\
+ &  & \ddots & \ddots & k_{n-1+1/2}\\
+ &  &  & k_{n-1/2} & -\left[k_{n+1/2}+k_{n-1/2}\right]
+\end{array}\right],
+\end{equation}
+
+\end_inset
+
+which is a symmetric and negative definite matrix, all eigen values are
+ negative.
+\end_layout
+
+\begin_layout Subsubsection
+More General Boundary Value Problems
+\end_layout
+
+\begin_layout Standard
+Similarly F.D.M.
+ can be applied to more general boundray value problems (B.V.P.'s), such as:
+\begin_inset Formula 
+\begin{equation}
+f(x)=a(x)u^{"}(x)+b(x)u^{'}(x)+c(x)u(x).
+\end{equation}
+
+\end_inset
+
+Higher order method
+\begin_inset Formula 
+\begin{equation}
+f=u^{"};\,\,u(0)=\alpha:\,\,u(1)=\beta.
+\end{equation}
+
+\end_inset
+
+Simply apply as higher order approximation to all the derivatives inovolved.
+ Here,
+\begin_inset Formula $u^{"}(x)$
+\end_inset
+
+ is a 
+\begin_inset Formula $4^{th}$
+\end_inset
+
+order approximation
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{12h^{2}}\left[-u_{1-2}+16u_{i-1}-30u_{i}+16u_{i+1}-u_{i+2}\right]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Extrapolation Method:
+\end_layout
+
+\begin_layout Standard
+We have two grids, one course grid and one fine grid, where 
+\begin_inset Formula $u_{j}$
+\end_inset
+
+are points on the course grid and 
+\begin_inset Formula $v_{j}$
+\end_inset
+
+are points on the fine grid.
+ Starting from 
+\begin_inset Formula $f=u^{"};\,\,u(0)=\alpha;\,\,u(1)=\beta,$
+\end_inset
+
+ we know that 
+\begin_inset Formula $u_{j}$
+\end_inset
+
+solved via central difference shcemes satisfies the estimate:
+\begin_inset Formula 
+\begin{equation}
+\text{for \ensuremath{j=1,2,...,m}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u_{j}-u(jh)=c_{2}h^{2}+c_{4}h^{4}+c_{6}h^{6}+...=\text{Error Equation},\label{eq:1/19/16 course grid error eqn}
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\begin{equation}
+v_{2j}-u(jh)=c_{2}\left(\frac{h}{2}\right)^{2}+c_{4}\left(\frac{h}{2}\right)^{4}+c_{6}\left(\frac{h}{2}\right)^{6}+...,\label{eq:1/19/16 fine grid error eqn.}
+\end{equation}
+
+\end_inset
+
+which the error is reduced be a factor of 
+\begin_inset Formula $\frac{1}{4}$
+\end_inset
+
+ for the fine gird.
+ Multiply Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1/19/16 fine grid error eqn."
+
+\end_inset
+
+ by 
+\begin_inset Formula $4$
+\end_inset
+
+ and we get 
+\begin_inset Formula 
+\begin{equation}
+4v_{2j}-4u(jh)=c_{2}h^{2}+4c_{4}\left(\frac{h}{2}\right)^{4}+4c_{6}\left(\frac{h}{2}\right)^{6}+...\label{eq:1/19/16 fine grid eqn mult by 4}
+\end{equation}
+
+\end_inset
+
+Now subtract Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1/19/16 fine grid eqn mult by 4"
+
+\end_inset
+
+ from Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:1/19/16 course grid error eqn"
+
+\end_inset
+
+ and we get
+\begin_inset Formula 
+\begin{equation}
+u_{j}-4v_{2j}+3u(jh)=c_{4}\left(1-\frac{1}{4}\right)h^{4}+\mathcal{O}(h^{6}),
+\end{equation}
+
+\end_inset
+
+then divide by 
+\begin_inset Formula $-3$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{4v_{2j}-u_{j}}{3}-u(jh)=-\frac{1}{3}c_{4}\frac{3}{4}h^{4}+\mathcal{O}(h^{6}),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\bar{u}_{j}=\frac{4v_{2j}-u_{j}}{3},$
+\end_inset
+
+therefore 
+\begin_inset Formula $\bar{u}_{j}$
+\end_inset
+
+is a 
+\begin_inset Formula $\mathcal{O}(h^{4})$
+\end_inset
+
+ accurate solution, so for the Extrapolation algorithim
+\end_layout
+
+\begin_layout Itemize
+solve for 
+\begin_inset Formula $u_{j}$
+\end_inset
+
+ on the course grid using central difference scheme 
+\end_layout
+
+\begin_layout Itemize
+sovle for 
+\begin_inset Formula $v_{j}$
+\end_inset
+
+on the fine grid using central difference scheme
+\end_layout
+
+\begin_layout Itemize
+set 
+\begin_inset Formula $\bar{u}_{j}=\frac{4v_{2j}-u_{j}}{3}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We can also use nonuniform course and fine grids.
+ What happens if all the date points are used for each difference equation?
+ Use the spectral method.
+ Higher the order, steeper the slope.
+\begin_inset Formula 
+\begin{equation}
+f(x)=\sum_{j=0}^{n}c_{j}x^{i}
+\end{equation}
+
+\end_inset
+
+is an unstable approximatoin.
+ In general, approximately data given on a regular grid with monic polynomial
+ represented leads to inaccurate approximations 
+\begin_inset Formula $\rightarrow$
+\end_inset
+
+Rungle phenomenon??
 \end_layout
 
 \begin_layout Standard
@@ -730,11 +2213,11 @@ because
 
 \end_layout
 
-\begin_layout Part
+\begin_layout Section
 Homework
 \end_layout
 
-\begin_layout Section
+\begin_layout Subsection
 Homework #1
 \end_layout
 
