@@ -2206,7 +2206,700 @@ is an unstable approximatoin.
 Rungle phenomenon??
 \end_layout
 
+\begin_layout Subsection
+01/26/15
+\end_layout
+
+\begin_layout Subsubsection
+Continuation
+\end_layout
+
 \begin_layout Standard
+Starting from 
+\begin_inset Formula $u_{xx}$
+\end_inset
+
+ in which is 
+\begin_inset Formula $\triangle u$
+\end_inset
+
+ in 1D
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+-\triangle u=f(x),
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula $u$
+\end_inset
+
+ and 
+\begin_inset Formula $f$
+\end_inset
+
+ are periodic on 
+\begin_inset Formula $[0,1]$
+\end_inset
+
+.
+ This means 
+\begin_inset Formula $u(0)=u(1)$
+\end_inset
+
+ and 
+\begin_inset Formula $f(0)=f(1).$
+\end_inset
+
+ The FD 
+\begin_inset Formula 
+\begin{equation}
+f_{i}=-\left(\frac{u_{i-1}-2u_{i}+u_{i+1}}{h^{2}}\right),
+\end{equation}
+
+\end_inset
+
+and the unknowns are 
+\begin_inset Formula $\{u_{0},u_{1},...,u_{m}\}.$
+\end_inset
+
+ Since 
+\begin_inset Formula $u_{m+1}=u_{m}$
+\end_inset
+
+ due to the periodic nature, we have at 
+\begin_inset Formula $i=0$
+\end_inset
+
+ *** insert picute***
+\begin_inset Formula 
+\begin{equation}
+f_{0}=-\left(\frac{u_{m}-2u_{0}+u_{1}}{h^{2}}\right),
+\end{equation}
+
+\end_inset
+
+and this i s 
+\begin_inset Formula $\mathcal{O}(h^{2})$
+\end_inset
+
+ algorithm.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Spectral Method
+\end_layout
+
+\begin_layout Standard
+Assume 
+\begin_inset Formula $u(x)$
+\end_inset
+
+ and 
+\begin_inset Formula $f(x)$
+\end_inset
+
+ are 
+\bar under
+smooth
+\bar default
+ and periodic on 
+\begin_inset Formula $[0,2\pi],$
+\end_inset
+
+ so we get 
+\begin_inset Formula $\{...,e^{-2ix},e^{-ix},1,e^{ix},e^{2ix},...\}$
+\end_inset
+
+, which is a basis for all smooth, periodic functions on 
+\begin_inset Formula $[0,2\pi],$
+\end_inset
+
+then 
+\begin_inset Formula 
+\begin{equation}
+u(x)=\sum_{n=-\infty}^{\infty}\hat{u_{n}}e^{-nx},
+\end{equation}
+
+\end_inset
+
+which is the Fourier series representaion of a function, and 
+\begin_inset Formula $\hat{u_{n}}$
+\end_inset
+
+is the 
+\begin_inset Formula $n^{th}$
+\end_inset
+
+Fourier coefficeint of 
+\begin_inset Formula $u(x).$
+\end_inset
+
+ This can be approximated by 
+\begin_inset Formula 
+\begin{equation}
+u(x)\approx\sum_{n=-N}^{N}\hat{u_{n}e^{-inx}},
+\end{equation}
+
+\end_inset
+
+which is the truncated Fourier series expansion.
+ The accuracy of this approximation is 
+\bar under
+super-algebraic
+\bar default
+ as long as 
+\begin_inset Formula $u$
+\end_inset
+
+ is smooth and periodic.
+ **This is better than any polynomial order** How to compute 
+\begin_inset Formula $\hat{u}?$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\hat{u}_{n}=<u,e^{inx}>=\intop_{0}^{2\pi}u(x)e^{-inx}dx,
+\end{equation}
+
+\end_inset
+
+and from this we can compute this in a summation form of 
+\begin_inset Formula 
+\begin{equation}
+=\sum_{k=1}^{N}u_{k}e^{-ink2\pi/2N}\cdot\frac{2\pi}{2N},
+\end{equation}
+
+\end_inset
+
+therefore
+\begin_inset Formula 
+\begin{equation}
+\hat{u}_{n}=\frac{\pi}{N}\sum_{k=1}^{2N}u_{k}e^{-\pi ink/N},
+\end{equation}
+
+\end_inset
+
+for 
+\begin_inset Formula $u=-N,-N+1,...,N-1$
+\end_inset
+
+ and 
+\begin_inset Formula $u_{k}:\text{ for \ensuremath{k=1,2,...,2N} and \ensuremath{\hat{u}_{n}:\,n=-N,...N-1.}}$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+This is
+\begin_inset Formula $\mathcal{O}(N^{2})$
+\end_inset
+
+ opperations, which is  neccesary to compute 
+\backslash
+ensuremath
+\begin_inset Formula $\hat{u}_{n}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ to and 
+\begin_inset Formula $\mathcal{O}(N^{2})$
+\end_inset
+
+ to evaluate 
+\begin_inset Formula $u(x)$
+\end_inset
+
+ at a single point.
+ This reduces to 
+\begin_inset Formula $\mathcal{O}(Nlog(N))$
+\end_inset
+
+ when using FFT for the 
+\begin_inset Formula $\hat{u}_{n}$
+\end_inset
+
+ calculations and 
+\begin_inset Formula $\mathcal{O}(N\log(N)$
+\end_inset
+
+ using IFFT for computing a point at 
+\begin_inset Formula $u(x),$
+\end_inset
+
+ where IFFT is Inverse ...???...
+ Tranfer.
+ How to solve the PDE 
+\begin_inset Formula 
+\begin{equation}
+-u_{xx}=f(x).
+\end{equation}
+
+\end_inset
+
+Now subsitute the Fourier representation of 
+\begin_inset Formula $u$
+\end_inset
+
+ into this equation 
+\begin_inset Formula 
+\[
+-\left(\sum_{n=-N}^{N-1}\hat{u}_{n}e^{inx}\right)_{xx}=f(x)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+-\sum_{n=-N}^{N-1}\left(\hat{u}_{n}e^{-inx}\right)_{xx}=f(x)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+-\sum_{n=-N}^{N-1}\hat{u}_{n}\left(e^{inx}\right)_{xx}=f(x)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\sum_{n=-N}^{N-1}\hat{u}_{n}\cdot n^{2}e^{inx}=f(x),
+\end{equation}
+
+\end_inset
+
+now taking the inner product of both sides with 
+\begin_inset Formula $e^{-imx}$
+\end_inset
+
+ we get 
+\begin_inset Formula 
+\begin{equation}
+\sum_{n=-N}^{N-1}n^{2}\hat{u}_{n}<e^{inx},e^{-imx}>=<f(x),e^{-imx}>,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+<e^{inx},e^{-inx}>=\begin{cases}
+1 & \text{,\text{ if \ensuremath{n=m}}}\\
+0 & ,\text{ otherwise}
+\end{cases},
+\end{equation}
+
+\end_inset
+
+therefore 
+\begin_inset Formula 
+\begin{equation}
+n^{2}\hat{u}_{n}=<f,e^{-inx}>=\hat{f}_{n},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\hat{f}_{n}$
+\end_inset
+
+ is the Fourier transform of 
+\begin_inset Formula $f$
+\end_inset
+
+.
+ From this we have 
+\begin_inset Formula 
+\begin{equation}
+\hat{u}_{n}=\frac{1}{n^{2}}\hat{f}_{n},\,\,n\ne0.
+\end{equation}
+
+\end_inset
+
+The order of opperations for this spectral method is 
+\begin_inset Formula 
+\[
+\boxed{f_{k}}\xrightarrow[\mathcal{O}(N\log(N))]{\text{FFT}}\boxed{\hat{f}_{n}}\xrightarrow[1/n^{2}]{\text{multiply by}}\boxed{\hat{u}_{n}}\xrightarrow[\mathcal{O}(N\log(N))]{\text{IFFT}}\boxed{u_{k}}
+\]
+
+\end_inset
+
+Note: you can set 
+\begin_inset Formula $\hat{u}_{0}$
+\end_inset
+
+to some arbitrary constant, (say 
+\begin_inset Formula $=0$
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Itemize
+Computational complexity 
+\begin_inset Formula $=\mathcal{O}(N\log(N))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Order of accuracy is 
+\bar under
+spectral
+\end_layout
+
+\begin_layout Standard
+Using all the data points you may get spectral.
+\end_layout
+
+\begin_layout Subsubsection
+Non-periodic Functions
+\end_layout
+
+\begin_layout Standard
+Startign from 
+\begin_inset Formula 
+\begin{equation}
+-u_{xx}=f(x);\,\,\,u(0)=\alpha,\,\,\,u(1)=\beta,
+\end{equation}
+
+\end_inset
+
+Let 
+\begin_inset Formula 
+\begin{equation}
+u(x)=\sum_{k=0}^{N}c_{k}\phi_{k}(x),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\{\phi(x)\}_{0}^{N-1}$
+\end_inset
+
+ are the basis functions that span all 
+\bar under
+smooth
+\bar default
+ functions defined on 
+\begin_inset Formula $[0,1]$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+e.g.: 
+\begin_inset Formula $\{\phi_{k}(x)\}=\{T_{k}(x)\}$
+\end_inset
+
+, where 
+\begin_inset Formula $T_{k}$
+\end_inset
+
+ are chebyshev polynomials.
+ 
+\end_layout
+
+\begin_layout Standard
+Where should 
+\begin_inset Formula $u(x)$
+\end_inset
+
+ be specified? At the roots of the chebyshev polynomial of highest degree.
+ ***insert figure*** Discretizes uniformly.
+ At endpoints, densely spaced and at midpoints sparsely spaced.
+ 
+\begin_inset Formula $x_{i}'s$
+\end_inset
+
+ are roots of the highest degree chebyshev polynomial.
+ 
+\begin_inset Formula 
+\begin{equation}
+u(x)=\sum_{k=0}^{N-1}c_{k}T_{k}(x),
+\end{equation}
+
+\end_inset
+
+and then substitute in the PDE 
+\begin_inset Formula 
+\begin{equation}
+\sum_{k=0}^{N-1}c_{k}\left(T_{k}(x)\right)_{xx}=f_{xx},
+\end{equation}
+
+\end_inset
+
+where the pseudo-spectral method(collocation) or galerkin method can be
+ used to solve this.
+ By taking the 
+\bar under
+inner product
+\bar default
+ with respect to 
+\begin_inset Formula $T_{k}$
+\end_inset
+
+'s we get a set of equations to solve for 
+\begin_inset Formula $c_{k}$
+\end_inset
+
+'s.
+ In the Fourier: Both of these are the same( collocation and galerkin).
+\end_layout
+
+\begin_layout Itemize
+If you can always go with galerkin.
+\end_layout
+
+\begin_layout Itemize
+In the end both will give spectral method.
+\end_layout
+
+\begin_layout Standard
+***Get notes that were missed*** and insert figs***
+\end_layout
+
+\begin_layout Subsection
+01/28/16
+\end_layout
+
+\begin_layout Subsubsection
+Boundary Layers
+\end_layout
+
+\begin_layout Standard
+Consider: 
+\begin_inset Formula 
+\begin{equation}
+\epsilon u^{''}-u^{'}=f;\,\,\,u(0)=\alpha,\,\,\,u(1)=\beta,\label{eq:01/28/18 advection-diffusion eqn.}
+\end{equation}
+
+\end_inset
+
+which is the steady state advection-diffusion equation.
+ 
+\begin_inset Formula $u^{'}$
+\end_inset
+
+ is the advection term, and 
+\begin_inset Formula $u^{''}$
+\end_inset
+
+ is the diffusion term.
+ If we only have 
+\begin_inset Formula 
+\begin{equation}
+-u^{'}=f;\,\,\,u(0)=\alpha,\,\,\,u(1)=\beta,
+\end{equation}
+
+\end_inset
+
+this equation is over specified.
+ This same issue happens for Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:01/28/18 advection-diffusion eqn."
+
+\end_inset
+
+, when 
+\begin_inset Formula $\epsilon\rightarrow0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+i) Singularly perturbed Equatoin
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\epsilon u^{''}-u^{'}=f;\,\,u(0)=\alpha,\,\,\,u(1)=\beta,
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ is small.
+ 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ multiplies the term with the highest order derivative.
+ The soltion 
+\begin_inset Formula $u$
+\end_inset
+
+ in this case will have 
+\bar under
+boundary-layers
+\bar default
+.
+ *If we have 
+\begin_inset Formula 
+\begin{equation}
+u^{''}-\epsilon u^{'}=f,
+\end{equation}
+
+\end_inset
+
+then the problem doesn't have issues as 
+\begin_inset Formula $\epsilon\rightarrow0.$
+\end_inset
+
+ Other examples:
+\end_layout
+
+\begin_layout Itemize
+Navier-Stokes (high Re)
+\end_layout
+
+\begin_layout Itemize
+Reaction-Diffusion (reaction dominates region)
+\end_layout
+
+\begin_layout Paragraph
+ii) Regularly - Perturbed Equations
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+u^{''}-au^{'}=f;\,\,\,u(0)=\alpha,\,\,\,u(1)=\beta,
+\end{equation}
+
+\end_inset
+
+where 
+\bar under
+a
+\bar default
+ is a small parameter.
+ As 
+\begin_inset Formula $a\rightarrow0$
+\end_inset
+
+ our solution equation is diffusion dominated.
+ 
+\bar under
+Interior Layers
+\bar default
+ 
+\begin_inset Formula 
+\begin{equation}
+\epsilon u^{''}-u(u^{'}-1)=0;\,\,\,u(0)=\alpha,\,\,\,u(1)=\beta,
+\end{equation}
+
+\end_inset
+
+with 
+\begin_inset Formula $0<\epsilon<1.$
+\end_inset
+
+ Let 
+\begin_inset Formula $\epsilon=0\implies u(u'-1)=0$
+\end_inset
+
+ which gives us 
+\begin_inset Formula 
+\begin{equation}
+u(x)=\begin{cases}
+x+\alpha & \text{if left B.C. is enforced}\\
+x+\beta-1 & \text{if right B.C. is enforced}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+***insert figure*** Perturbation theory will tell us exactly where the switch
+ happens and the width of the layers.
+ What happens if we apply FDM with a regular grid? ***insert figures***
+\end_layout
+
+\begin_layout Standard
+L.T.E (local truncation error) 
+\begin_inset Formula 
+\begin{equation}
+\tau\propto h^{2}u^{'''}(x)+\mathcal{O}(h^{3}),
+\end{equation}
+
+\end_inset
+
+Near the boundary layer, 
+\begin_inset Formula $u^{'''}(x)$
+\end_inset
+
+ is very large therefore we expect 
+\begin_inset Formula $\tau$
+\end_inset
+
+ to be large.
+ What we need is an estimate on the global error 
+\begin_inset Formula $E.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+AE=-\tau\implies E=-A^{-1}\tau,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $A$
+\end_inset
+
+ is a dense matrix.
+ 
 \begin_inset Newpage newpage
 \end_inset
 
