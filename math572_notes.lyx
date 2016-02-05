@@ -2899,7 +2899,661 @@ where
 \end_inset
 
  is a dense matrix.
+ The matrix system 
+\begin_inset Formula $-A^{-1}\tau=E:$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{ccccc}
+\# & \cdots & \cdots & \cdots & \#\\
+\vdots &  &  &  & \vdots\\
+\vdots &  & \text{dense} &  & \vdots\\
+\vdots &  &  &  & \vdots\\
+\# & \cdots & \cdots & \cdots & \#
+\end{array}\right]\left[\begin{array}{c}
+0\\
+0\\
+\vdots\\
+\text{non-}\\
+\text{zeros}
+\end{array}\right]=\left[\begin{array}{c}
+\#\\
+\#\\
+\#\\
+\#\\
+\#
+\end{array}\right],
+\end{equation}
+
+\end_inset
+
+From this we get a value of error in every row of the 
+\begin_inset Formula $E$
+\end_inset
+
+ (global error) matrix.
+ Even though L.T.E.
+ error is small in some regions, because 
+\begin_inset Formula $A$
+\end_inset
+
+ matrix is dense, so multipling 
+\begin_inset Formula $A^{-1}$
+\end_inset
+
+by some L.T.E.
+ error, will give global error everywhere.
  
+\end_layout
+
+\begin_layout Standard
+We could make a non-uniform grid, where it is more course in smooth areas,
+ and a fine grid in the boundary layer.
+ ***Insert figure***
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $X(z)$
+\end_inset
+
+ is a smooth function that maps a regular grid in z to a non-uniform gird
+ in x.
+ This tells us to set up a gird like this for FDM on the 
+\begin_inset Formula $x$
+\end_inset
+
+ axis.
+ *** insert fig*** 
+\begin_inset Formula 
+\begin{equation}
+u^{''}\left(x_{i}\right)\backsimeq c_{1}u\left(x_{i-1}\right)+c_{2}u\left(x_{i}\right)+c_{3}u\left(x_{i+1}\right),
+\end{equation}
+
+\end_inset
+
+where the grid is not unifrom.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+c_{1}u\left(x_{i-1}\right)+c_{2}u\left(x_{i}\right)+c_{3}u\left(x_{i+1}\right)-u^{''}\left(x_{i}\right)=\frac{1}{3}\left(h_{2}-h_{1}\right)u^{'''}\left(x_{i}\right)+\left(\right)u^{''''}\left(x_{i}\right)+...,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\[
+h_{2}-h_{1}=\left(x_{i+1}-x_{i}\right)-\left(x_{i}-x_{i-1}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+=X\left(z_{i+1}\right)-2X\left(z_{i}\right)+X\left(z_{i-1}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+=\mathcal{O}(h^{2})X^{''}\left(z_{i}\right),
+\end{equation}
+
+\end_inset
+
+therefore we get 
+\begin_inset Formula 
+\begin{equation}
+c_{1}u\left(x_{i-1}\right)+c_{2}u\left(x_{i}\right)+c_{3}u\left(x_{i+1}\right)-u^{''}\left(x_{i}\right)=\mathcal{O}\left(h^{2}\right)\left[\text{ \,\,\,\,\,}\right]+...
+\end{equation}
+
+\end_inset
+
+From previous class ***inserft fig***
+\end_layout
+
+\begin_layout Itemize
+Break domain into non-uniform intervals
+\end_layout
+
+\begin_layout Itemize
+use a 
+\bar under
+fixed-degree
+\bar default
+ ,say p, polynomial to represtent functions in each interval
+\end_layout
+
+\begin_layout Itemize
+Pseudo-spectral method.
+\end_layout
+
+\begin_layout Standard
+Adaptive Mesh Refinement (AMR): Even before solving the PDE, can we predict
+ where the solution is changing rapidly?
+\end_layout
+
+\begin_layout Subsubsection
+Continuation Method
+\end_layout
+
+\begin_layout Standard
+Starting from the following equation:
+\begin_inset Formula 
+\begin{equation}
+\epsilon u^{''}-u^{'}=f;\,\,\,u(0)=\alpha,\,\,\,u(1)=\beta,
+\end{equation}
+
+\end_inset
+
+and we start with a large 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ **insert fig*** Therefore the final solution is okay on a regular gird.
+ Then we make the grid slightly smaller *** insert fg*** We need to refine
+ a portion of the gird.
+ ****Insert fig*** as 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ goes down we get a more curvy plot.
+ 
+\end_layout
+
+\begin_layout Standard
+From pseudo spectral method last class
+\begin_inset Formula 
+\begin{equation}
+u(x)=\sum_{j=0}^{\phi}c_{j}\phi_{j}(x)=c_{0}+c_{1}x+c_{2}x^{2},
+\end{equation}
+
+\end_inset
+
+which is a second degree monomial, and we combine this with spectral coefficient
+s.
+ This doesn't combine with FDM.
+\end_layout
+
+\begin_layout Subsection
+02/02/16
+\end_layout
+
+\begin_layout Subsubsection
+B.V.P.'s
+\end_layout
+
+\begin_layout Standard
+Consider Elliptic Equations:
+\end_layout
+
+\begin_layout Standard
+2D
+\begin_inset Formula 
+\begin{equation}
+\left(ku_{x}\right)_{x}+\left(ku_{y}\right)_{y}=f,
+\end{equation}
+
+\end_inset
+
+whichis the steady heat/diffusion equation.
+ If 
+\begin_inset Formula $k$
+\end_inset
+
+ is constant we get 
+\begin_inset Formula 
+\begin{equation}
+u_{xx}+u_{yy}=f;\,\,\,\text{assume }k=1,
+\end{equation}
+
+\end_inset
+
+and this is the Poisson Equation.
+ 
+\begin_inset Formula 
+\begin{equation}
+u_{xx}+u_{yy}=0,
+\end{equation}
+
+\end_inset
+
+which is the Laplace Equation, or another notation is 
+\begin_inset Formula 
+\begin{equation}
+\Delta u=0,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\triangle$
+\end_inset
+
+ is the Laplacian opprerator 
+\begin_inset Formula 
+\begin{equation}
+\Delta=\nabla\cdot\left(\nabla u\right),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\nabla\cdot(\,\,)$
+\end_inset
+
+ is the divergence and 
+\begin_inset Formula $\left(\nabla u\right)$
+\end_inset
+
+is the gradient.
+ 
+\begin_inset Formula 
+\begin{equation}
+\nabla\vec{u}=\left[\begin{array}{c}
+u_{x}\\
+u_{y}
+\end{array}\right],\,\,\,\nabla\cdot\vec{u}=u_{1x}+u_{2y}.
+\end{equation}
+
+\end_inset
+
+In complex analysis: 
+\begin_inset Formula 
+\begin{equation}
+f(z)=u(z)+iv(z)=u(x,y)+iv(x,y),
+\end{equation}
+
+\end_inset
+
+from which we get the Cauchy-Riemman Equations:
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+u_{x} & =v_{y}\\
+u_{y} & =v_{x}
+\end{cases}\rightarrow\begin{cases}
+u_{xx}+u_{yy} & =0\\
+v_{xx}+u_{yy} & =0
+\end{cases},
+\end{equation}
+
+\end_inset
+
+If this is true, then we say that 
+\begin_inset Formula $f(z)$
+\end_inset
+
+ is 
+\bar under
+analytic
+\bar default
+ 
+\begin_inset Formula $u,v$
+\end_inset
+
+ are 
+\bar under
+harmonic functions.
+\end_layout
+
+\begin_layout Subsubsection
+F.D.M.
+ for Poisson Equation in 2D
+\end_layout
+
+\begin_layout Standard
+Starting with the following equations, see diagram for more detail **insert
+ fig**
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+\Delta u=f & \text{ in }\Omega\\
+u=\xi & \text{ on }\Gamma
+\end{cases},
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+1) Discretize the Domain:
+\end_layout
+
+\begin_layout Standard
+Let
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+h=\frac{1}{m},
+\end{equation}
+
+\end_inset
+
+**insert fig** and we get 
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+x_{i}=ih, & i=0,1,...,m+1\\
+y_{i} & j=0,1,...,m+1
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+2)Convert the Difference Equation:
+\end_layout
+
+\begin_layout Standard
+We convert the differnce equation to a difference equation at some arbitrary
+ interior point 
+\begin_inset Formula $(x_{i},y_{i})$
+\end_inset
+
+ 
+\begin_inset Formula 
+\begin{equation}
+\Delta u\left(x_{i},y_{j}\right)=u_{xx}+u_{yy}\biggr|_{(i,j)},
+\end{equation}
+
+\end_inset
+
+***insert fig***
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+=\frac{u_{(i-1,j)}-2u_{ij}+u_{(i+1,j)}}{h^{2}}+\frac{u_{(i,j-1)}-2u_{i,j}+u_{(i,j+1)}}{h^{2}}
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+=\frac{1}{h^{2}}\left[u_{i-1,j}+u_{i+1,j}+u_{i,j-1}+u_{i,j+1}-4u_{i,j}\right],
+\end{equation}
+
+\end_inset
+
+which we call a 5-point stencil.
+ **insert Figure*** Now apply the B.C.'s at the boundary nodes.
+\end_layout
+
+\begin_layout Paragraph
+3) Form the Matrix Equation:
+\end_layout
+
+\begin_layout Standard
+Let's assume row wise ordering.
+ ***insert fig*** We have the matrix sytem of equations 
+\begin_inset Formula $AU=f$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{h^{2}}\left[\begin{array}{ccccc}
+T & I\\
+I & T & \ddots\\
+ & \ddots & \ddots & \ddots\\
+ &  & \ddots & \ddots & I\\
+ &  &  & I & T
+\end{array}\right]\left[\begin{array}{c}
+u^{(1)}\\
+u^{(2)}\\
+\vdots\\
+\vdots\\
+u^{(m)}
+\end{array}\right]=\left[\begin{array}{c}
+\\
+\\
+f\\
+\\
+\\
+\end{array}\right],
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+u^{(1)} & =u_{1},u_{2},...,u_{m}\\
+u^{(2)} & =u_{m+1},u_{m+2},...,u_{2m}\\
+\vdots & \vdots\\
+u^{(j)} & =u_{jm+1},...,u_{jm}
+\end{cases},
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula $I_{m\times m}$
+\end_inset
+
+is an identity matrix and 
+\begin_inset Formula 
+\begin{equation}
+T=\left[\begin{array}{ccccc}
+-4 & 1\\
+1 & -4 & \ddots\\
+ & \ddots & \ddots & \ddots\\
+ &  & \ddots & \ddots & 1\\
+ &  &  & 1 & -4
+\end{array}\right].
+\end{equation}
+
+\end_inset
+
+The order of accuracy: 
+\begin_inset Formula 
+\begin{equation}
+\tau_{i,j}=\frac{1}{12}h^{2}\left(u_{xxxx}+u_{yyyy}\right)\biggr|_{(i,j)}+\mathcal{O}(h^{4}),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\tau_{i,j}$
+\end_inset
+
+ is the L.T.E, therefore we have second order accuracy, with 
+\begin_inset Formula 
+\begin{equation}
+AE=-\tau,
+\end{equation}
+
+\end_inset
+
+therefore 
+\begin_inset Formula 
+\begin{equation}
+\Delta u=\Delta_{5}^{h}+\mathcal{O}(h^{2}),
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\Delta_{5}^{h}$
+\end_inset
+
+ is the 5-point discrete Laplacian.
+ We can also have alternating ordering, see figure for scheme **insert fig**
+ and we get the following matrix system of equations
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cc}
+D & H\\
+H^{T} & D
+\end{array}\right]\left[\begin{array}{c}
+u^{red}\\
+u^{black}
+\end{array}\right]=\left[\begin{array}{c}
+f^{red}\\
+f^{black}
+\end{array}\right],
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $D$
+\end_inset
+
+ is a diagonal matrix and 
+\begin_inset Formula 
+\begin{equation}
+D=-\frac{4}{h^{2}}I,
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula $H$
+\end_inset
+
+ is a sparse matrix.
+ We can also have a 9-point stencil **insert fig**
+\begin_inset Formula 
+\begin{equation}
+\Delta_{9}^{h}u=\frac{1}{6h^{2}}\left[4u_{i+1,j}+4u_{i-1,j}+4u_{i,j-1}+4u_{i,j+1}+...\right],
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\begin{equation}
+\Delta u=\Delta_{9}^{h}u+\frac{1}{12}h^{2}\left[u_{xxxx}+2u_{xxyy}+u_{yyyy}\right]+\mathcal{O}(h^{2}),
+\end{equation}
+
+\end_inset
+
+therefore we have 
+\begin_inset Formula 
+\begin{equation}
+\Delta u=\Delta_{9}^{h}u+\mathcal{O}(h^{2}),
+\end{equation}
+
+\end_inset
+
+and also note that 
+\begin_inset Formula 
+\begin{equation}
+\Delta\left(\Delta u\right)=\Delta^{2}u=u_{xxxx}+2u_{xxyy}+u_{yyyy},
+\end{equation}
+
+\end_inset
+
+which is the Biharmonic operator.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Case i)
+\end_layout
+
+\begin_layout Standard
+Suppose we are showing Laplace Equation 
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+\Delta u=0, & \text{ in }\mbox{\Omega}\\
+u=\xi, & \text{ in}\mbox{ \ensuremath{\Gamma}}
+\end{cases}\rightarrow\Delta^{2}u=0,
+\end{equation}
+
+\end_inset
+
+therefore 
+\begin_inset Formula $\Delta_{9}^{h}$
+\end_inset
+
+ is fourth order accurate.
+\end_layout
+
+\begin_layout Paragraph
+Case ii)
+\end_layout
+
+\begin_layout Standard
+We have 
+\begin_inset Formula 
+\begin{equation}
+\begin{cases}
+\Delta u=f, & \text{ in }\mbox{\Omega}\\
+u=\xi, & \text{ on }\mbox{\Gamma}
+\end{cases}\rightarrow\Delta^{2}u=\Delta f,
+\end{equation}
+
+\end_inset
+
+and solve for 
+\begin_inset Formula 
+\begin{equation}
+\Delta_{9}^{h}u=f,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+\widetilde{f}=f-\frac{1}{12}h^{2}\Delta f,
+\end{equation}
+
+\end_inset
+
+which is a fourth order accuate method and 
+\begin_inset Formula $\Delta f$
+\end_inset
+
+ is computed with a 5-point or 9-point stencil, but 
+\begin_inset Formula $\Delta u$
+\end_inset
+
+ needs to be computed with a 9-point stencil.
+ **insert fig** For cases like these, were the grid has portions that are
+ defined in 
+\begin_inset Formula $\Gamma,$
+\end_inset
+
+ we need to modify our method to use the 5-point stencil.
+ We can use methods such as
+\end_layout
+
+\begin_layout Itemize
+Inverse Boundary Method (I.B.M.)
+\end_layout
+
+\begin_layout Itemize
+Inversed Inteface Method (I.I.M)
+\end_layout
+
+\begin_layout Itemize
+Ghost-Fluid-Method (G.F.M)
+\end_layout
+
+\begin_layout Standard
 \begin_inset Newpage newpage
 \end_inset
 
