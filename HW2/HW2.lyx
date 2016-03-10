@@ -338,5 +338,1434 @@ which is the exact solution verified.
  
 \end_layout
 
+\begin_layout Subsection*
+b)
+\end_layout
+
+\begin_layout Standard
+To solve the central differnce scheme we set up the following matrix equation
+ with the initial conidtions of 
+\begin_inset Formula $u(0)=1;\,\,\,u(1)=3$
+\end_inset
+
+, 
+\begin_inset Formula $AU=f$
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{h^{2}}\left[\begin{array}{cccccc}
+h^{2} & 0 & \cdots & \cdots & \cdots & 0\\
+\left(\epsilon+\frac{h}{2}\right) & -2\epsilon & \left(\epsilon-\frac{h}{2}\right) & 0 & 0 & \vdots\\
+0 & \ddots & \ddots & \ddots & 0 & \vdots\\
+\vdots & 0 & \ddots & \ddots & \ddots & 0\\
+\vdots & 0 & 0 & \left(\epsilon+\frac{h}{2}\right) & -2\epsilon & \left(\epsilon-\frac{h}{2}\right)\\
+0 & \cdots & \cdots & \cdots & 0 & h^{2}
+\end{array}\right]\left[\begin{array}{c}
+u_{0}\\
+u_{1}\\
+u_{2}\\
+\vdots\\
+u_{m-1}\\
+u_{m}
+\end{array}\right]=\left[\begin{array}{c}
+1\\
+-1\\
+\vdots\\
+\vdots\\
+-1\\
+3
+\end{array}\right].
+\end{equation}
+
+\end_inset
+
+From this we get the following errors for the grid refinement analysis for
+ each of the 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ cases shown in 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename prob1_b1.jpg
+	width 18cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central difference scheme grid refinement error analysis
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Central-difference-scheme error"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+From this we can see that the order of accuracy is 
+\begin_inset Formula $\mathcal{O}(h^{2})$
+\end_inset
+
+.
+ We also get the different plots for the grid refinement for each 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ case and the following figures show this.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CDS_e0.3.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central difference scheme 
+\begin_inset Formula $\epsilon=0.3$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CDS_e0.1.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central difference scheme 
+\begin_inset Formula $\epsilon=0.1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CDS_e0.05.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central difference scheme 
+\begin_inset Formula $\epsilon=0.05$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CDS_e0.005.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central difference scheme 
+\begin_inset Formula $\epsilon=0.005$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Central-difference-scheme eps=0.005"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To solve the central-upwind differnce scheme we set up the following matrix
+ equation with the initial conidtions of 
+\begin_inset Formula $u(0)=1;\,\,\,u(1)=3$
+\end_inset
+
+, 
+\begin_inset Formula $AU=f$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{h^{2}}\left[\begin{array}{cccccc}
+h^{2} & 0 & \cdots & \cdots & \cdots & 0\\
+\left(\epsilon+\frac{h}{2}\right) & -\left(2\epsilon+h\right) & \epsilon & 0 & 0 & \vdots\\
+0 & \ddots & \ddots & \ddots & 0 & \vdots\\
+\vdots & 0 & \ddots & \ddots & \ddots & 0\\
+\vdots & 0 & 0 & \left(\epsilon+\frac{h}{2}\right) & -\left(2\epsilon+h\right) & \epsilon\\
+0 & \cdots & \cdots & \cdots & 0 & h^{2}
+\end{array}\right]\left[\begin{array}{c}
+u_{0}\\
+u_{1}\\
+u_{2}\\
+\vdots\\
+u_{m-1}\\
+u_{m}
+\end{array}\right]=\left[\begin{array}{c}
+1\\
+-1\\
+\vdots\\
+\vdots\\
+-1\\
+3
+\end{array}\right].
+\end{equation}
+
+\end_inset
+
+From this we get the following errors for the grid refinement analysis for
+ each of the 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ cases shown in 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename prob1_b2.jpg
+	width 18cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central-upwind difference scheme grid refinement error analysis
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Central-upwind-difference-scheme error"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+From this we can see that the order of accuracy is 
+\begin_inset Formula $\mathcal{O}(h)$
+\end_inset
+
+.
+ We also get the different plots for the grid refinement for each 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ case and the following figures show the numerical soluton against the numerical
+ solutions for each 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ case.
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CuDS_e0.3.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central-upwind difference scheme 
+\begin_inset Formula $\epsilon=0.3$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CuDS_e0.1.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central-upwind difference scheme 
+\begin_inset Formula $\epsilon=0.1$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CuDS_e0.05.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central-upwind difference scheme 
+\begin_inset Formula $\epsilon=0.05$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename CuDS_e0.005.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Central-upwind difference scheme 
+\begin_inset Formula $\epsilon=0.005$
+\end_inset
+
+
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:Central-upwind-difference-scheme eps=0.005"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+c)
+\end_layout
+
+\begin_layout Standard
+From these results the order of accuracy tells us that the Central difference
+ scheme is best, but for cases where 
+\begin_inset Formula $\epsilon$
+\end_inset
+
+ is small the Central-upwind difference scheme is best when our grid is
+ small.
+ This is seen in both the error plots of Figures
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Central-difference-scheme error"
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Central-upwind-difference-scheme error"
+
+\end_inset
+
+, as well as the plots of the analystic solution against the numerical solutions
+ in Figures
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Central-difference-scheme eps=0.005"
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+and
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:Central-upwind-difference-scheme eps=0.005"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Problem #2
+\end_layout
+
+\begin_layout Subsubsection*
+a)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Write a program to solve the boundary value problem for the nonlinear pendulum
+ as discussed in the text.
+ See if you an find yet another solution for the boundary conditions illustrated
+ in Figures 2.4 and 2.5.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Using the method given in the book the following plots were recreated for
+ Figures 2.4 and 2.5.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename p2a2.4.jpg
+	width 8cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename p2a2.5.jpg
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Figures 2.4 recreated
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Both of these converged with 7 itterations for 
+\begin_inset Formula $m=100$
+\end_inset
+
+ in the example given in the book.
+ Another solution can be found by starting with 
+\begin_inset Formula 
+\begin{equation}
+\theta(t_{i})=0.7\cdot\cos(t_{i})+0.6\cdot\sin(t_{i}),\label{eq:p2#1}
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\begin{equation}
+\theta(t_{i})=0.7\cdot\cos(t_{i}).\label{eq:p2#2}
+\end{equation}
+
+\end_inset
+
+The solution from Equation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:p2#1"
+
+\end_inset
+
+ converges in 8 steps, and the solution from Equation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:p2#2"
+
+\end_inset
+
+ converges in 5 steps.
+ The plots from these solutions are 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename p2a1.jpg
+	width 8cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename p2a2.jpg
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Alternate solutions (right Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:p2#1"
+
+\end_inset
+
+, left Eqn.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:p2#2"
+
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+b)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Box Boxed
+position "t"
+hor_pos "c"
+has_inner_box 1
+inner_pos "t"
+use_parbox 0
+use_makebox 0
+width "100col%"
+special "none"
+height "1in"
+height_special "totalheight"
+status open
+
+\begin_layout Plain Layout
+Find numerical solution to this BVP with the same general behavior as seen
+ in Figure 2.5 for the case of a longer time interval, say 
+\begin_inset Formula $T=20$
+\end_inset
+
+, again with 
+\begin_inset Formula $\alpha=\beta=0.7$
+\end_inset
+
+.
+ Try larger values of T.
+ What does 
+\begin_inset Formula $\max_{i}\theta_{i}$
+\end_inset
+
+ approach as 
+\begin_inset Formula $T$
+\end_inset
+
+ is increased? Note that for large 
+\begin_inset Formula $T$
+\end_inset
+
+ this solution exhibits 
+\begin_inset Quotes eld
+\end_inset
+
+boundary layers
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+The original solution was recreated with a max
+\begin_inset Formula $\theta_{i}=2.897$
+\end_inset
+
+ for 
+\begin_inset Formula $T=2\pi$
+\end_inset
+
+.
+ The following is the recreated figure
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename prob2b_2pi.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Problem 2b, Figure 2.5
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As 
+\begin_inset Formula $T$
+\end_inset
+
+ is increased, the max
+\begin_inset Formula $\theta_{i}$
+\end_inset
+
+ approaches infinity.
+ The following plots show the solution for 
+\begin_inset Formula $T=20,50,100,200$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename prob2b_20.jpg
+	width 8cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename prob2b_50.jpg
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename prob2b_100.jpg
+	width 8cm
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename prob2b_200.jpg
+	width 8cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Problem 2b, increasing T (Top left T=20, Top right T=50, Bottom left T=100,
+ Bottom right T=200)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Problem #3
+\end_layout
+
+\begin_layout Subsubsection*
+a)
+\end_layout
+
+\begin_layout Standard
+The function appears to converge when 
+\begin_inset Formula $N=30$
+\end_inset
+
+, which gives us the plot of 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename prob3aconv.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Problem 3a: Convergence of spectral difference
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+and then plotting the error vs.
+ h we get the following plot 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename problem3__a.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Problem 3a: Error vs.
+ h
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+which gives us an order of accuracy of 
+\begin_inset Formula $\approx\mathcal{O}(h^{13})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection*
+b)
+\end_layout
+
+\begin_layout Standard
+A second-order finite difference scheme was used to compute the first derivative
+ using 
+\begin_inset Formula 
+\begin{equation}
+D_{0}=\frac{u(x_{i+1})-u(x_{i-1})}{2h},
+\end{equation}
+
+\end_inset
+
+which gives us the following plot of error vs.
+ h for a grid refinement of 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename problem3__b.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Problem 3b
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+which gives an order of accuarcy of 
+\begin_inset Formula $\mathcal{O}(h^{1.275})\approx\mathcal{O}(h)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsubsection*
+c)
+\end_layout
+
+\begin_layout Standard
+The convergence of the spectral difference is plotted as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename problem3_c.jpg
+	width 10cm
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Problem 3c
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+which has a rate of convergence approimately proportional to 
+\begin_inset Formula $N$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection*
+Problem #4
+\end_layout
+
+\begin_layout Subsubsection*
+a)
+\end_layout
+
+\begin_layout Standard
+Starting from the 9-point Laplacian
+\begin_inset Formula 
+\[
+\Delta_{9}^{h}u_{ij}=\frac{1}{6h^{2}}\biggr[4(u_{i-1,j}+u_{i+1,j}+u_{i,j-1}+u_{i,j+1})
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
++u_{i-1,j-1}+u_{i-1,j+1}+u_{i+1,j-1}+u_{i+1,j+1}-20u_{ij}\biggr],\label{eq:9=point lap}
+\end{equation}
+
+\end_inset
+
+and the 5-point Laplacian is 
+\begin_inset Formula 
+\begin{equation}
+\Delta_{5}^{h}u_{ij}=\frac{1}{h^{2}}\biggr[u_{i-1,j}+u_{i+1,j}+u_{i,j-1}+u_{i,j+1}-4u_{ij}\biggr].\label{eq:5-point lap}
+\end{equation}
+
+\end_inset
+
+Substitute Equation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:5-point lap"
+
+\end_inset
+
+ into Equation
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:9=point lap"
+
+\end_inset
+
+, we get 
+\begin_inset Formula 
+\begin{equation}
+\Delta_{9}^{h}u_{ij}=\frac{1}{6h^{2}}\biggr[u_{i-1,j-1}+u_{i-1,j+1}+u_{i+1,j-1}+u_{i+1,j+1}-4u_{ij}\biggr]+\frac{4}{6}\Delta_{5}^{h}u_{ij}.
+\end{equation}
+
+\end_inset
+
+The truncation error can be found by 
+\begin_inset Formula 
+\begin{equation}
+\tau=\Delta_{9}^{h}u_{ij}-\Delta u
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\tau=\frac{1}{6h^{2}}\biggr[u_{i-1,j-1}+u_{i-1,j+1}+u_{i+1,j-1}+u_{i+1,j+1}-4u_{ij}\biggr]+\frac{4}{6}\Delta_{5}^{h}u_{ij}-\Delta u,
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{equation}
+\Delta u=u_{xx}+u_{yy.}
+\end{equation}
+
+\end_inset
+
+Take the Taylor expansions of the terms in Equation 23, 
+\begin_inset Formula 
+\[
+u_{i-1,j-1}=u+h\left(-u_{x}-u_{y}\right)+\frac{1}{2}h^{2}\left(u_{xx}+2_{xy}+u_{yy}\right)+\frac{1}{6}h^{3}\left(-u_{xxx}-3u_{xxy}-3u_{xyy}-u_{yyy}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
++\frac{1}{24}h^{4}\left(u_{xxxx}+4u_{xxxy}+6u_{xxyy}+4u_{xyyy}+u_{yyyy}\right)
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+u_{i-1,j+1}=u+h\left(-u_{x}+u_{y}\right)+\frac{1}{2}h^{2}\left(u_{xx}-2_{xy}+u_{yy}\right)+\frac{1}{6}h^{3}\left(-u_{xxx}+3u_{xxy}-3u_{xyy}+u_{yyy}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
++\frac{1}{24}h^{4}\left(u_{xxxx}-4u_{xxxy}+6u_{xxyy}-4u_{xyyy}+u_{yyyy}\right)
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+u_{i+1,j-1}=u+h\left(+u_{x}-u_{y}\right)+\frac{1}{2}h^{2}\left(u_{xx}-2_{xy}+u_{yy}\right)+\frac{1}{6}h^{3}\left(+u_{xxx}-3u_{xxy}+3u_{xyy}-u_{yyy}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
++\frac{1}{24}h^{4}\left(u_{xxxx}-4u_{xxxy}+6u_{xxyy}-4u_{xyyy}+u_{yyyy}\right)
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+u_{i+1,j-1}=u+h\left(+u_{x}+u_{y}\right)+\frac{1}{2}h^{2}\left(u_{xx}+2_{xy}+u_{yy}\right)+\frac{1}{6}h^{3}\left(+u_{xxx}+3u_{xxy}+3u_{xyy}+u_{yyy}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
++\frac{1}{24}h^{4}\left(u_{xxxx}+4u_{xxxy}+6u_{xxyy}+4u_{xyyy}+u_{yyyy}\right)
+\end{equation}
+
+\end_inset
+
+From this we have 
+\begin_inset Formula $-4u_{ij}$
+\end_inset
+
+ in Eqn.
+ 23 cancles out with the first terms of the taylor expansions.
+ Collecting the second terms we get 
+\begin_inset Formula 
+\begin{equation}
+h\left(-u_{x}-u_{y}\right)+h\left(-u_{x}+u_{y}\right)+h\left(+u_{x}-u_{y}\right)+h\left(+u_{x}+u_{y}\right)=0.
+\end{equation}
+
+\end_inset
+
+For the second terms we get
+\begin_inset Formula 
+\begin{equation}
+\frac{1}{2}h^{2}\left(u_{xx}+2_{xy}+u_{yy}\right)+\frac{1}{2}h^{2}\left(u_{xx}-2_{xy}+u_{yy}\right)+\frac{1}{2}h^{2}\left(u_{xx}-2_{xy}+u_{yy}\right)+\frac{1}{2}h^{2}\left(u_{xx}+2_{xy}+u_{yy}\right)-\Delta u=0
+\end{equation}
+
+\end_inset
+
+Collecting the fourth terms we get 
+\begin_inset Formula 
+\[
+\frac{1}{6}h^{3}\left(-u_{xxx}-3u_{xxy}-3u_{xyy}-u_{yyy}\right)+\frac{1}{6}h^{3}\left(-u_{xxx}+3u_{xxy}-3u_{xyy}+u_{yyy}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
++\frac{1}{6}h^{3}\left(+u_{xxx}-3u_{xxy}+3u_{xyy}-u_{yyy}\right)++\frac{1}{6}h^{3}\left(+u_{xxx}+3u_{xxy}+3u_{xyy}+u_{yyy}\right)=0.
+\end{equation}
+
+\end_inset
+
+Finally we collect the last terms 
+\begin_inset Formula 
+\[
++\frac{1}{24}h^{4}\left(u_{xxxx}+4u_{xxxy}+6u_{xxyy}+4u_{xyyy}+u_{yyyy}\right)+\frac{1}{24}h^{4}\left(u_{xxxx}-4u_{xxxy}+6u_{xxyy}-4u_{xyyy}+u_{yyyy}\right)
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
++\frac{1}{24}h^{4}\left(u_{xxxx}-4u_{xxxy}+6u_{xxyy}-4u_{xyyy}+u_{yyyy}\right)+\frac{1}{24}h^{4}\left(u_{xxxx}+4u_{xxxy}+6u_{xxyy}+4u_{xyyy}+u_{yyyy}\right)-\Delta u
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+=h^{4}u_{xxyy}.
+\end{equation}
+
+\end_inset
+
+We then note that the next preceding term will go to zero, like the other
+ odd terms of 
+\begin_inset Formula $h$
+\end_inset
+
+, and the next term is 
+\begin_inset Formula $\mathcal{O}(h^{6})$
+\end_inset
+
+.
+ Now we plug this back into Eqn.23 to get 
+\begin_inset Formula 
+\begin{equation}
+\tau=\frac{1}{6h^{2}}\biggr[h^{4}u_{xxyy}+\mathcal{O}(h^{6})\biggr]+\frac{4}{6}\Delta_{5}^{h}u_{ij},
+\end{equation}
+
+\end_inset
+
+which gives us the truncation error of 
+\begin_inset Formula 
+\begin{equation}
+\tau=\frac{1}{6}h^{2}u_{xxyy}+\mathcal{O}(h^{4})+\frac{4}{6}\Delta_{5}^{h}u.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection*
+b)
+\end_layout
+
+\begin_layout Standard
+To get the A matrix in the form for the 9 point stencil we change the form
+ of it in the matlab code to 
+\end_layout
+
+\begin_layout Standard
+e = ones(m,1);
+\end_layout
+
+\begin_layout Standard
+S=spdiags([e 10*e e], [-1 0 1], m,m);
+\end_layout
+
+\begin_layout Standard
+I=spdiags([-1/2*e e -1/2*e].[-1 0 1],m,m);
+\end_layout
+
+\begin_layout Standard
+A = (kron(I,S) + kron(S,I))/h^2;
+\end_layout
+
+\begin_layout Standard
+A = -1*A;
+\end_layout
+
+\begin_layout Standard
+Which gives us a matrix in the form of 
+\begin_inset Formula 
+\begin{equation}
+\left[\begin{array}{cccccccc}
+-20 & 4\\
+4 & -20 & 4\\
+ & 4 & -20\\
+ &  &  & \ddots\\
+ &  &  &  & \ddots\\
+4 & 1 &  &  &  & \ddots\\
+1 & 4 & 1 &  &  &  & \ddots\\
+ & 1 & 4 &  &  &  &  & \ddots
+\end{array}\right],
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The error of this was giving is in order of 10^0; so there are some errors
+ in the alogrithm for the 9-point that I was not able to figure out.
+\end_layout
+
 \end_body
 \end_document
